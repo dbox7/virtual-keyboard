@@ -1,0 +1,7 @@
+.main__keyboard {
+  display: grid;
+}
+
+.main__keyboard-key {
+  grid-template-columns: repeat(13, 40px);
+}
