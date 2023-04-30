@@ -4,8 +4,7 @@
   align-items: center;
   width: 900px;
   margin: auto;
-
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: 600;
 }
 
@@ -18,12 +17,7 @@
   display: grid;
   grid-template-columns: repeat(16, 40px);
   grid-template-rows: repeat(5, 40px);
-  grid-template-areas: 
-    "backquote dig1 dig2 dig3 dig4 dig5 dig6 dig7 dig8 dig9 dig0 minus equal backspace backspace backspace"
-    "tab tab keyQ keyW keyE keyR keyT keyY keyU keyI keyO keyP bracketL bracketR backslash del"
-    "capsLock capsLock keyA keyS keyD keyF keyG keyH keyJ keyK keyL semicolon quote enter enter enter"
-    "shift shift shift keyZ keyX keyC keyV keyB keyN keyM comma period slash arrowUp shiftR shiftR"
-    "ctrl win alt space space space space space space space space altR arrowLeft arrowButtom arrowRight ctrlR";
+  grid-template-areas: "backquote dig1 dig2 dig3 dig4 dig5 dig6 dig7 dig8 dig9 dig0 minus equal backspace backspace backspace" "tab tab keyQ keyW keyE keyR keyT keyY keyU keyI keyO keyP bracketL bracketR backslash del" "capsLock capsLock keyA keyS keyD keyF keyG keyH keyJ keyK keyL semicolon quote enter enter enter" "shift shift shift keyZ keyX keyC keyV keyB keyN keyM comma period slash arrowUp shiftR shiftR" "ctrl win alt space space space space space space space space altR arrowLeft arrowButtom arrowRight ctrlR";
   gap: 8px;
   padding: 10px;
   border: 2px solid #CCD4D9;
@@ -294,3 +288,5 @@
 .ctrlR {
   grid-area: ctrlR;
 }
+
+/*# sourceMappingURL=style.css.map */
