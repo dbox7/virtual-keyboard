@@ -35,10 +35,15 @@
   background-color: #EBEFF2;
   color: #545759;
   box-shadow: 2px 2px 2px gray;
-  transition: 0.3s;
+  transition: 0.2s;
 }
 
 .main__keyboard-key:active {
+  background-color: #CCD4D9;
+  box-shadow: none;
+}
+
+.main__keyboard-key.active {
   background-color: #CCD4D9;
   box-shadow: none;
 }
@@ -203,7 +208,7 @@
   grid-area: enter;
 }
 
-.shift {
+.shiftLeft {
   grid-area: shift;
 }
 
@@ -251,7 +256,7 @@
   grid-area: arrowUp;
 }
 
-.shiftR {
+.shiftRight {
   grid-area: shiftR;
 }
 
@@ -279,7 +284,7 @@
   grid-area: arrowLeft;
 }
 
-.arrowButton {
+.arrowButtom {
   grid-area: arrowButtom;
 }
 
