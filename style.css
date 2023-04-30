@@ -29,6 +29,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  user-select: none;
+  cursor: pointer;
   border-radius: 2px;
   background-color: #EBEFF2;
   color: #545759;
