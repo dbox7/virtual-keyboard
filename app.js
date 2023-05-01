@@ -175,6 +175,7 @@ function deleteChar() {
 }
 
 function buttonClick(event) {
+  //console.log(event)
   event.preventDefault();
   activeKey(event);
   if ((event.altKey && getButton(event).innerHTML == "Ctrl") || (event.ctrlKey && getButton(event).innerHTML == "Alt")) {
@@ -218,6 +219,7 @@ function buttonClick(event) {
       writeChar("   ");
       break;
     case "Space":
+    case " ":
       writeChar(" ");
       break;
     case "ArrowUp":
