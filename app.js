@@ -175,15 +175,21 @@ function deleteChar() {
 }
 
 function buttonClick(event) {
-  console.log(getButton(event).innerHTML, event)
   event.preventDefault();
   activeKey(event);
-
   if ((event.altKey && getButton(event).innerHTML == "Ctrl") || (event.ctrlKey && getButton(event).innerHTML == "Alt")) {
     en = en ? false : true;
     reactOnShift(0);
   }
-  const what = event.type.includes("key") ? event.key : event.target.innerHTML;
+  // if (event.shiftKey) {
+  //   writeChar(event);
+  // }
+  // let what;
+  // if (event.type.includes("up") && event.key == "Shift") {
+  //   what = "Unshift";
+  // } else {
+    const what = event.type.includes("key") ? event.key : event.target.innerHTML;
+  // }
   switch (what) {
     case "CapsLock":
       capsLock = capsLock ? false : true;
@@ -198,6 +204,9 @@ function buttonClick(event) {
       event.target.addEventListener("keyup", () => {
         reactOnShift(0);
       }, {once: true})
+      break;
+    case "Unshift":
+      reactOnShift(0);
       break;
     case "Enter":
       writeChar("\n");
@@ -246,7 +255,7 @@ function init() {
     for (const item in data) {
       const block = createEl('div',  'main__keyboard-key', item);
       block.innerHTML = Array.isArray(data[item]) ? data[item][0] : data[item];
-      block.addEventListener('mousedown', buttonClick)
+      block.addEventListener('mousedown', buttonClick);
       keyboard.appendChild(block);
     }
   }
