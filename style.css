@@ -52,43 +52,43 @@
   grid-area: backquote;
 }
 
-.dig1 {
+.digit1 {
   grid-area: dig1;
 }
 
-.dig2 {
+.digit2 {
   grid-area: dig2;
 }
 
-.dig3 {
+.digit3 {
   grid-area: dig3;
 }
 
-.dig4 {
+.digit4 {
   grid-area: dig4;
 }
 
-.dig5 {
+.digit5 {
   grid-area: dig5;
 }
 
-.dig6 {
+.digit6 {
   grid-area: dig6;
 }
 
-.dig7 {
+.digit7 {
   grid-area: dig7;
 }
 
-.dig8 {
+.digit8 {
   grid-area: dig8;
 }
 
-.dig9 {
+.digit9 {
   grid-area: dig9;
 }
 
-.dig0 {
+.digit0 {
   grid-area: dig0;
 }
 
@@ -140,11 +140,11 @@
   grid-area: keyP;
 }
 
-.bracketL {
+.bracketLeft {
   grid-area: bracketL;
 }
 
-.bracketR {
+.bracketRight {
   grid-area: bracketR;
 }
 
@@ -152,7 +152,7 @@
   grid-area: backslash;
 }
 
-.del {
+.delete {
   grid-area: del;
 }
 
@@ -260,15 +260,15 @@
   grid-area: shiftR;
 }
 
-.ctrl {
+.controlLeft {
   grid-area: ctrl;
 }
 
-.win {
+.metaLeft {
   grid-area: win;
 }
 
-.alt {
+.altLeft {
   grid-area: alt;
 }
 
@@ -276,7 +276,7 @@
   grid-area: space;
 }
 
-.altR {
+.altRight {
   grid-area: altR;
 }
 
@@ -284,7 +284,7 @@
   grid-area: arrowLeft;
 }
 
-.arrowButtom {
+.arrowDown {
   grid-area: arrowButtom;
 }
 
@@ -292,7 +292,7 @@
   grid-area: arrowRight;
 }
 
-.ctrlR {
+.controlRight {
   grid-area: ctrlR;
 }
 

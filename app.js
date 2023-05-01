@@ -1,35 +1,35 @@
 const data = {
   backspace: "Backspace",
   tab: "Tab",
-  del: "Del",
+  delete: "Del",
   capsLock: "CapsLock",
   enter: "Enter",
   shiftLeft: "Shift",
   arrowUp: "🠕",
   shiftRight: "Shift",
-  ctrl: "Ctrl",
-  win: "Win",
-  alt: "Alt",
+  controlLeft: "Ctrl",
+  metaLeft: "Win",
+  altLeft: "Alt",
   space: "Space",
-  altR: "Alt",
+  altRight: "Alt",
   arrowLeft: "🠔",
-  arrowButtom: "🠗",
+  arrowDown: "🠗",
   arrowRight: "🠖",
-  ctrlR: "Ctrl"
+  controlRight: "Ctrl"
 }
 
 const EN = {
   backquote: ["`", "~"],
-  dig1: ["1", "!"],
-  dig2: ["2", "@"],
-  dig3: ["3", "#"],
-  dig4: ["4", "$"],
-  dig5: ["5", "%"],
-  dig6: ["6", "^"],
-  dig7: ["7", "&"],
-  dig8: ["8", "*"],
-  dig9: ["9", "("],
-  dig0: ["0", ")"],
+  digit1: ["1", "!"],
+  digit2: ["2", "@"],
+  digit3: ["3", "#"],
+  digit4: ["4", "$"],
+  digit5: ["5", "%"],
+  digit6: ["6", "^"],
+  digit7: ["7", "&"],
+  digit8: ["8", "*"],
+  digit9: ["9", "("],
+  digit0: ["0", ")"],
   minus: ["-", "_"],
   equal: ["=", "+"],
   keyQ: ["q", "Q"],
@@ -42,8 +42,8 @@ const EN = {
   keyI: ["i", "I"],
   keyO: ["o", "O"],
   keyP: ["p", "P"],
-  bracketL: ["[", "{"],
-  bracketR: ["]", "}"],
+  bracketLeft: ["[", "{"],
+  bracketRight: ["]", "}"],
   backslash: ["\\", "|"],
   keyA: ["a", "A"],
   keyS: ["s", "S"],
@@ -77,7 +77,7 @@ function createEl(block, ...block_class) {
 }
 
 const body = document.querySelector("body");
-let shift = false;
+let capsLock = false;
 
 function reactOnShift(n) {
   const blocks = document.querySelector('.main__keyboard').children;
@@ -88,12 +88,11 @@ function reactOnShift(n) {
 }
 
 function activeKey(event) {
-  if (event.code.includes('Shift') && event.type == "keydown") {
-    shift = true;
-  } else {
-    shift = false;
+  if (event.keyCode == 20 && event.type == "keydown") {
+    capsLock = capsLock ? false : true;
   }
-  if (shift) {
+  console.log(capsLock)
+  if (event.shiftKey || capsLock) {
     reactOnShift(1);
   } else {
     reactOnShift(0);
