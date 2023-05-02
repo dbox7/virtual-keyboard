@@ -91,7 +91,7 @@ const RU = {
   keyU: ["г", "Г"],
   keyI: ["ш", "Ш"],
   keyO: ["щ", "Щ"],
-  keyP: ["З", "з"],
+  keyP: ["з", "З"],
   bracketLeft: ["х", "Х"],
   bracketRight: ["ъ", "Ъ"],
   backslash: ["\\", "/"],
@@ -177,11 +177,13 @@ function deleteChar() {
 
 function buttonClick(event) {
   //console.log(event)
+  //console.log(String.fromCharCode(event.keyCode + 29))
   event.preventDefault();
   activeKey(event);
-  if ((event.altKey && getButton(event).innerHTML == "Ctrl") || (event.ctrlKey && getButton(event).innerHTML == "Alt")) {
+  if (event.type.includes("down") && 
+      ((event.altKey && getButton(event).innerHTML == "Ctrl") || 
+      (event.ctrlKey && getButton(event).innerHTML == "Alt"))) {
     en = en ? false : true;
-    console.log('here')
     reactOnShift(0);
   }
   if (!(event.type == "mouseup" || event.type == "keyup")) {
@@ -231,7 +233,10 @@ function buttonClick(event) {
       case "Alt":
         break;
       default:
-        writeChar(getButton(event).innerHTML);
+        let char = getButton(event).innerHTML;
+        console.log(char, char.length);
+        char = char.length > 3 ? event.key : char;
+        writeChar(char);
         break;
     }
   } else {
