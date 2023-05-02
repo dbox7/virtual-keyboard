@@ -71,12 +71,12 @@ const EN = {
 const RU = {
   backquote: ["ё", "Ё"],
   digit1: ["1", "!"],
-  digit2: ["2", "@"],
-  digit3: ["3", "#"],
-  digit4: ["4", "$"],
+  digit2: ["2", "\""],
+  digit3: ["3", "№"],
+  digit4: ["4", ";"],
   digit5: ["5", "%"],
-  digit6: ["6", "^"],
-  digit7: ["7", "&"],
+  digit6: ["6", ":"],
+  digit7: ["7", "?"],
   digit8: ["8", "*"],
   digit9: ["9", "("],
   digit0: ["0", ")"],
@@ -91,7 +91,7 @@ const RU = {
   keyU: ["г", "Г"],
   keyI: ["ш", "Ш"],
   keyO: ["щ", "Щ"],
-  keyP: ["З", "з"],
+  keyP: ["з", "З"],
   bracketLeft: ["х", "Х"],
   bracketRight: ["ъ", "Ъ"],
   backslash: ["\\", "/"],
@@ -128,12 +128,14 @@ function createEl(block, ...block_class) {
 
 const body = document.querySelector("body");
 let capsLock = false;
-let en = true;
+let shift = false;
 
 function reactOnShift(n) {
   //console.log(n)
   const blocks = document.querySelector('.main__keyboard').children;
-  let lang = en ? EN : RU;
+  const en = localStorage.getItem("en");
+  console.log(en)
+  let lang = (en == "true") ? EN : RU;
   for (const item in lang) {
     const block = document.querySelector(`.${item}`);
     block.innerHTML = lang[item][n];
@@ -169,80 +171,90 @@ function writeChar(char) {
   textArea.value += char;
 }
 
-function deleteChar() {
+function deleteChar(del = false) {
   const textArea = document.querySelector(".main__textarea");
-  textArea.value = textArea.value.slice(0, -1);
+  let idx = del ? textArea.selectionStart : textArea.selectionStart - 1;
+  let txt = textArea.value;
+  let diff = txt.length - textArea.selectionStart;
+  if (diff > 0 && txt.length != 1 && diff != 1) {
+    diff = del ? diff - 1: diff;
+    textArea.value = textArea.value.slice(0, idx).concat(textArea.value.slice(-diff))
+  } else {
+    textArea.value = textArea.value.slice(0, idx)
+  }
+  textArea.selectionEnd = idx;
 }
 
 function buttonClick(event) {
   //console.log(event)
   event.preventDefault();
   activeKey(event);
-  if ((event.altKey && getButton(event).innerHTML == "Ctrl") || (event.ctrlKey && getButton(event).innerHTML == "Alt")) {
-    en = en ? false : true;
+  if (event.type.includes("down") && 
+      ((event.altKey && getButton(event).innerHTML == "Ctrl") || 
+      (event.ctrlKey && getButton(event).innerHTML == "Alt"))) {
+    const en = localStorage.getItem("en");
+    console.log(en);
+    (en == "true") ? localStorage.setItem("en", false) : localStorage.setItem("en", true);
     reactOnShift(0);
   }
-  // if (event.shiftKey) {
-  //   writeChar(event);
-  // }
-  // let what;
-  // if (event.type.includes("up") && event.key == "Shift") {
-  //   what = "Unshift";
-  // } else {
+  if (!(event.type == "mouseup" || event.type == "keyup")) {
     const what = event.type.includes("key") ? event.key : event.target.innerHTML;
-  // }
-  switch (what) {
-    case "CapsLock":
-      capsLock = capsLock ? false : true;
+    switch (what) {
+      case "CapsLock":
+        capsLock = capsLock ? false : true;
+        capsLock ? reactOnShift(1) : reactOnShift(0);
+        break;
+      case "Shift":
+        shift = true;
+        activeKey(event);
+        capsLock ? reactOnShift(0) : reactOnShift(1);
+        break;
+      case "Enter":
+        writeChar("\n");
+        break;
+      case "Backspace":
+        deleteChar();
+        break;
+      case "Tab":
+        writeChar("   ");
+        break;
+      case "Space":
+      case " ":
+        writeChar(" ");
+        break;
+      case "ArrowUp":
+        writeChar("↑");
+        break;
+      case "ArrowDown":
+        writeChar("↓");
+        break;
+      case "ArrowLeft":
+        writeChar("←");
+        break;
+      case "ArrowRight":
+        writeChar("→");
+        break;
+      case "Del":
+      case "Delete":
+        deleteChar(true);
+        break;
+      case "Ctrl":
+      case "Control":
+      case "Win":
+      case "Meta":
+      case "Alt":
+        break;
+      default:
+        let char = getButton(event).innerHTML;
+        char = char.length > 3 ? event.key : char;
+        writeChar(char);
+        break;
+    }
+  } else {
+    if (event.key == "Shift" || getButton(event).className.includes("shift")) {
+      shift = false;
       capsLock ? reactOnShift(1) : reactOnShift(0);
-      break;
-    case "Shift":
-      activeKey(event);
-      reactOnShift(1);
-      event.target.addEventListener("mouseup", () => {
-        reactOnShift(0);
-      }, {once: true})
-      event.target.addEventListener("keyup", () => {
-        reactOnShift(0);
-      }, {once: true})
-      break;
-    case "Unshift":
-      reactOnShift(0);
-      break;
-    case "Enter":
-      writeChar("\n");
-      break;
-    case "Backspace":
-      deleteChar();
-      break;
-    case "Tab":
-      writeChar("   ");
-      break;
-    case "Space":
-    case " ":
-      writeChar(" ");
-      break;
-    case "ArrowUp":
-      writeChar("🠕");
-      break;
-    case "ArrowDown":
-      writeChar("🠗");
-      break;
-    case "ArrowLeft":
-      writeChar("🠔");
-      break;
-    case "ArrowRight":
-      writeChar("🠖");
-      break;
-    case "Ctrl":
-    case "Control":
-    case "Win":
-    case "Meta":
-    case "Alt":
-      break;
-    default:
-      writeChar(getButton(event).innerHTML);
-      break;
+    }
   }
 }
 
@@ -262,12 +274,18 @@ function init() {
       const block = createEl('div',  'main__keyboard-key', item);
       block.innerHTML = Array.isArray(data[item]) ? data[item][0] : data[item];
       block.addEventListener('mousedown', buttonClick);
+      block.addEventListener('mouseup', buttonClick);
       keyboard.appendChild(block);
     }
   }
   
   drowKey(data);
-  drowKey(EN);
+  if (!localStorage.getItem("en") || localStorage.getItem("en") == "true") {
+    localStorage.setItem("en", true);
+    drowKey(EN);
+  } else {
+    drowKey(RU);
+  }
   
   main.appendChild(h1);
   main.appendChild(textArea);
@@ -277,7 +295,7 @@ function init() {
   body.appendChild(main);
 
   document.addEventListener('keydown', buttonClick);
-  document.addEventListener('keyup', activeKey);
+  document.addEventListener('keyup', buttonClick);
 }
 
 init()
