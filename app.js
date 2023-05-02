@@ -71,12 +71,12 @@ const EN = {
 const RU = {
   backquote: ["ё", "Ё"],
   digit1: ["1", "!"],
-  digit2: ["2", "@"],
-  digit3: ["3", "#"],
-  digit4: ["4", "$"],
+  digit2: ["2", "\""],
+  digit3: ["3", "№"],
+  digit4: ["4", ";"],
   digit5: ["5", "%"],
-  digit6: ["6", "^"],
-  digit7: ["7", "&"],
+  digit6: ["6", ":"],
+  digit7: ["7", "?"],
   digit8: ["8", "*"],
   digit9: ["9", "("],
   digit0: ["0", ")"],
@@ -171,12 +171,14 @@ function writeChar(char) {
 }
 
 function deleteChar() {
+  onselect = (event) => {};
   const textArea = document.querySelector(".main__textarea");
+  console.log(textArea.value)
   textArea.value = textArea.value.slice(0, -1);
 }
 
 function buttonClick(event) {
-  //console.log(event)
+  console.log(event)
   //console.log(String.fromCharCode(event.keyCode + 29))
   event.preventDefault();
   activeKey(event);
@@ -198,9 +200,6 @@ function buttonClick(event) {
         activeKey(event);
         reactOnShift(1);
         break;
-      case "Unshift":
-        reactOnShift(0);
-        break;
       case "Enter":
         writeChar("\n");
         break;
@@ -215,16 +214,19 @@ function buttonClick(event) {
         writeChar(" ");
         break;
       case "ArrowUp":
-        writeChar("🠕");
+        writeChar("↑");
         break;
       case "ArrowDown":
-        writeChar("🠗");
+        writeChar("↓");
         break;
       case "ArrowLeft":
-        writeChar("🠔");
+        writeChar("←");
         break;
       case "ArrowRight":
-        writeChar("🠖");
+        writeChar("→");
+        break;
+      case "Del":
+        deleteChar();
         break;
       case "Ctrl":
       case "Control":
@@ -234,7 +236,6 @@ function buttonClick(event) {
         break;
       default:
         let char = getButton(event).innerHTML;
-        console.log(char, char.length);
         char = char.length > 3 ? event.key : char;
         writeChar(char);
         break;
