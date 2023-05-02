@@ -170,11 +170,11 @@ function writeChar(char) {
   textArea.value += char;
 }
 
-function deleteChar() {
-  onselect = (event) => {};
+function deleteChar(del = false) {
   const textArea = document.querySelector(".main__textarea");
-  console.log(textArea.value)
-  textArea.value = textArea.value.slice(0, -1);
+  let idx = del ? textArea.selectionStart : textArea.selectionStart - 1;
+  textArea.value = textArea.value.replace(textArea.value[idx], "");
+  textArea.selectionEnd = idx;
 }
 
 function buttonClick(event) {
@@ -226,7 +226,8 @@ function buttonClick(event) {
         writeChar("→");
         break;
       case "Del":
-        deleteChar();
+      case "Delete":
+        deleteChar(true);
         break;
       case "Ctrl":
       case "Control":
