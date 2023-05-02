@@ -174,13 +174,19 @@ function writeChar(char) {
 function deleteChar(del = false) {
   const textArea = document.querySelector(".main__textarea");
   let idx = del ? textArea.selectionStart : textArea.selectionStart - 1;
-  textArea.value = textArea.value.replace(textArea.value[idx], "");
+  let txt = textArea.value;
+  let diff = txt.length - textArea.selectionStart;
+  if (diff > 0 && txt.length != 1 && diff != 1) {
+    diff = del ? diff - 1: diff;
+    textArea.value = textArea.value.slice(0, idx).concat(textArea.value.slice(-diff))
+  } else {
+    textArea.value = textArea.value.slice(0, idx)
+  }
   textArea.selectionEnd = idx;
 }
 
 function buttonClick(event) {
   console.log(event)
-  //console.log(String.fromCharCode(event.keyCode + 29))
   event.preventDefault();
   activeKey(event);
   if (event.type.includes("down") && 
@@ -188,13 +194,7 @@ function buttonClick(event) {
       (event.ctrlKey && getButton(event).innerHTML == "Alt"))) {
     const en = localStorage.getItem("en");
     console.log(en);
-    // if (en == "true") {
-    //   localStorage.setItem("en", false);
-    // } else {
-    //   localStorage.setItem("en", true);
-    // }
     (en == "true") ? localStorage.setItem("en", false) : localStorage.setItem("en", true);
-    //console.log(localStorage.getItem("en"))
     reactOnShift(0);
   }
   if (!(event.type == "mouseup" || event.type == "keyup")) {
