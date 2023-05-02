@@ -128,6 +128,7 @@ function createEl(block, ...block_class) {
 
 const body = document.querySelector("body");
 let capsLock = false;
+let shift = false;
 let en = true;
 
 function reactOnShift(n) {
@@ -180,69 +181,64 @@ function buttonClick(event) {
   activeKey(event);
   if ((event.altKey && getButton(event).innerHTML == "Ctrl") || (event.ctrlKey && getButton(event).innerHTML == "Alt")) {
     en = en ? false : true;
+    console.log('here')
     reactOnShift(0);
   }
-  // if (event.shiftKey) {
-  //   writeChar(event);
-  // }
-  // let what;
-  // if (event.type.includes("up") && event.key == "Shift") {
-  //   what = "Unshift";
-  // } else {
+  if (!(event.type == "mouseup" || event.type == "keyup")) {
     const what = event.type.includes("key") ? event.key : event.target.innerHTML;
-  // }
-  switch (what) {
-    case "CapsLock":
-      capsLock = capsLock ? false : true;
-      capsLock ? reactOnShift(1) : reactOnShift(0);
-      break;
-    case "Shift":
-      activeKey(event);
-      reactOnShift(1);
-      event.target.addEventListener("mouseup", () => {
+    switch (what) {
+      case "CapsLock":
+        capsLock = capsLock ? false : true;
+        capsLock ? reactOnShift(1) : reactOnShift(0);
+        break;
+      case "Shift":
+        shift = true;
+        activeKey(event);
+        reactOnShift(1);
+        break;
+      case "Unshift":
         reactOnShift(0);
-      }, {once: true})
-      event.target.addEventListener("keyup", () => {
-        reactOnShift(0);
-      }, {once: true})
-      break;
-    case "Unshift":
+        break;
+      case "Enter":
+        writeChar("\n");
+        break;
+      case "Backspace":
+        deleteChar();
+        break;
+      case "Tab":
+        writeChar("   ");
+        break;
+      case "Space":
+      case " ":
+        writeChar(" ");
+        break;
+      case "ArrowUp":
+        writeChar("🠕");
+        break;
+      case "ArrowDown":
+        writeChar("🠗");
+        break;
+      case "ArrowLeft":
+        writeChar("🠔");
+        break;
+      case "ArrowRight":
+        writeChar("🠖");
+        break;
+      case "Ctrl":
+      case "Control":
+      case "Win":
+      case "Meta":
+      case "Alt":
+        break;
+      default:
+        writeChar(getButton(event).innerHTML);
+        break;
+    }
+  } else {
+    if (event.key == "Shift" || getButton(event).className.includes("shift")) {
+      shift = false;
       reactOnShift(0);
-      break;
-    case "Enter":
-      writeChar("\n");
-      break;
-    case "Backspace":
-      deleteChar();
-      break;
-    case "Tab":
-      writeChar("   ");
-      break;
-    case "Space":
-    case " ":
-      writeChar(" ");
-      break;
-    case "ArrowUp":
-      writeChar("🠕");
-      break;
-    case "ArrowDown":
-      writeChar("🠗");
-      break;
-    case "ArrowLeft":
-      writeChar("🠔");
-      break;
-    case "ArrowRight":
-      writeChar("🠖");
-      break;
-    case "Ctrl":
-    case "Control":
-    case "Win":
-    case "Meta":
-    case "Alt":
-      break;
-    default:
-      writeChar(getButton(event).innerHTML);
-      break;
+    }
   }
 }
 
@@ -262,6 +258,7 @@ function init() {
       const block = createEl('div',  'main__keyboard-key', item);
       block.innerHTML = Array.isArray(data[item]) ? data[item][0] : data[item];
       block.addEventListener('mousedown', buttonClick);
+      block.addEventListener('mouseup', buttonClick);
       keyboard.appendChild(block);
     }
   }
@@ -277,7 +274,7 @@ function init() {
   body.appendChild(main);
 
   document.addEventListener('keydown', buttonClick);
-  document.addEventListener('keyup', activeKey);
+  document.addEventListener('keyup', buttonClick);
 }
 
 init()
