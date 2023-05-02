@@ -207,7 +207,7 @@ function buttonClick(event) {
       case "Shift":
         shift = true;
         activeKey(event);
-        reactOnShift(1);
+        capsLock ? reactOnShift(0) : reactOnShift(1);
         break;
       case "Enter":
         writeChar("\n");
@@ -253,7 +253,7 @@ function buttonClick(event) {
   } else {
     if (event.key == "Shift" || getButton(event).className.includes("shift")) {
       shift = false;
-      reactOnShift(0);
+      capsLock ? reactOnShift(1) : reactOnShift(0);
     }
   }
 }
