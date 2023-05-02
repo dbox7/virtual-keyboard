@@ -186,7 +186,7 @@ function deleteChar(del = false) {
 }
 
 function buttonClick(event) {
-  console.log(event)
+  //console.log(event)
   event.preventDefault();
   activeKey(event);
   if (event.type.includes("down") && 
