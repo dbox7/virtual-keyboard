@@ -129,12 +129,13 @@ function createEl(block, ...block_class) {
 const body = document.querySelector("body");
 let capsLock = false;
 let shift = false;
-let en = true;
 
 function reactOnShift(n) {
   //console.log(n)
   const blocks = document.querySelector('.main__keyboard').children;
-  let lang = en ? EN : RU;
+  const en = localStorage.getItem("en");
+  console.log(en)
+  let lang = (en == "true") ? EN : RU;
   for (const item in lang) {
     const block = document.querySelector(`.${item}`);
     block.innerHTML = lang[item][n];
@@ -185,7 +186,15 @@ function buttonClick(event) {
   if (event.type.includes("down") && 
       ((event.altKey && getButton(event).innerHTML == "Ctrl") || 
       (event.ctrlKey && getButton(event).innerHTML == "Alt"))) {
-    en = en ? false : true;
+    const en = localStorage.getItem("en");
+    console.log(en);
+    // if (en == "true") {
+    //   localStorage.setItem("en", false);
+    // } else {
+    //   localStorage.setItem("en", true);
+    // }
+    (en == "true") ? localStorage.setItem("en", false) : localStorage.setItem("en", true);
+    //console.log(localStorage.getItem("en"))
     reactOnShift(0);
   }
   if (!(event.type == "mouseup" || event.type == "keyup")) {
@@ -271,7 +280,12 @@ function init() {
   }
   
   drowKey(data);
-  drowKey(EN);
+  if (!localStorage.getItem("en") || localStorage.getItem("en") == "true") {
+    localStorage.setItem("en", true);
+    drowKey(EN);
+  } else {
+    drowKey(RU);
+  }
   
   main.appendChild(h1);
   main.appendChild(textArea);
