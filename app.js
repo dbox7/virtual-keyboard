@@ -252,6 +252,10 @@ function init() {
   h1.innerHTML = "RSS Виртуальная клавиатура";
   const textArea = createEl('textarea', 'main__textarea');
   const keyboard = createEl('div', 'main__keyboard');
+  const h3 = createEl('h3');
+  h3.innerHTML = "Ctrl + Alt: переключение языка";
+  const os = createEl('h3');
+  os.innerHTML = "Клавиатура создана в ОС Windows";
 
   function drowKey(data) {
     for (const item in data) {
@@ -268,6 +272,8 @@ function init() {
   main.appendChild(h1);
   main.appendChild(textArea);
   main.appendChild(keyboard);
+  main.appendChild(h3);
+  main.appendChild(os);
   body.appendChild(main);
 
   document.addEventListener('keydown', buttonClick);
