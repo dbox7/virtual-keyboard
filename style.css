@@ -1,0 +1,299 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 900px;
+  margin: auto;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+}
+
+.main__textarea {
+  width: 780px;
+  height: 300px;
+}
+
+.main__keyboard {
+  display: grid;
+  grid-template-columns: repeat(16, 40px);
+  grid-template-rows: repeat(5, 40px);
+  grid-template-areas: "backquote dig1 dig2 dig3 dig4 dig5 dig6 dig7 dig8 dig9 dig0 minus equal backspace backspace backspace" "tab tab keyQ keyW keyE keyR keyT keyY keyU keyI keyO keyP bracketL bracketR backslash del" "capsLock capsLock keyA keyS keyD keyF keyG keyH keyJ keyK keyL semicolon quote enter enter enter" "shift shift shift keyZ keyX keyC keyV keyB keyN keyM comma period slash arrowUp shiftR shiftR" "ctrl win alt space space space space space space space space altR arrowLeft arrowButtom arrowRight ctrlR";
+  gap: 8px;
+  padding: 10px;
+  border: 2px solid #CCD4D9;
+  border-radius: 4px;
+  background-color: #97A2A6;
+}
+
+.main__keyboard-key {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  cursor: pointer;
+  border-radius: 2px;
+  background-color: #EBEFF2;
+  color: #545759;
+  box-shadow: 2px 2px 2px gray;
+  transition: 0.2s;
+}
+
+.main__keyboard-key:active {
+  background-color: #CCD4D9;
+  box-shadow: none;
+}
+
+.main__keyboard-key.active {
+  background-color: #CCD4D9;
+  box-shadow: none;
+}
+
+.backquote {
+  grid-area: backquote;
+}
+
+.digit1 {
+  grid-area: dig1;
+}
+
+.digit2 {
+  grid-area: dig2;
+}
+
+.digit3 {
+  grid-area: dig3;
+}
+
+.digit4 {
+  grid-area: dig4;
+}
+
+.digit5 {
+  grid-area: dig5;
+}
+
+.digit6 {
+  grid-area: dig6;
+}
+
+.digit7 {
+  grid-area: dig7;
+}
+
+.digit8 {
+  grid-area: dig8;
+}
+
+.digit9 {
+  grid-area: dig9;
+}
+
+.digit0 {
+  grid-area: dig0;
+}
+
+.backspace {
+  grid-area: backspace;
+}
+
+.tab {
+  grid-area: tab;
+}
+
+.keyQ {
+  grid-area: keyQ;
+}
+
+.keyW {
+  grid-area: keyW;
+}
+
+.keyE {
+  grid-area: keyE;
+}
+
+.keyR {
+  grid-area: keyR;
+}
+
+.keyT {
+  grid-area: keyT;
+}
+
+.keyY {
+  grid-area: keyY;
+}
+
+.keyU {
+  grid-area: keyU;
+}
+
+.keyI {
+  grid-area: keyI;
+}
+
+.keyO {
+  grid-area: keyO;
+}
+
+.keyP {
+  grid-area: keyP;
+}
+
+.bracketLeft {
+  grid-area: bracketL;
+}
+
+.bracketRight {
+  grid-area: bracketR;
+}
+
+.backslash {
+  grid-area: backslash;
+}
+
+.delete {
+  grid-area: del;
+}
+
+.capsLock {
+  grid-area: capsLock;
+}
+
+.keyA {
+  grid-area: keyA;
+}
+
+.keyS {
+  grid-area: keyS;
+}
+
+.keyD {
+  grid-area: keyD;
+}
+
+.keyF {
+  grid-area: keyF;
+}
+
+.keyG {
+  grid-area: keyG;
+}
+
+.keyH {
+  grid-area: keyH;
+}
+
+.keyJ {
+  grid-area: keyJ;
+}
+
+.keyK {
+  grid-area: keyK;
+}
+
+.keyL {
+  grid-area: keyL;
+}
+
+.semicolon {
+  grid-area: semicolon;
+}
+
+.quote {
+  grid-area: quote;
+}
+
+.enter {
+  grid-area: enter;
+}
+
+.shiftLeft {
+  grid-area: shift;
+}
+
+.keyZ {
+  grid-area: keyZ;
+}
+
+.keyX {
+  grid-area: keyX;
+}
+
+.keyC {
+  grid-area: keyC;
+}
+
+.keyV {
+  grid-area: keyV;
+}
+
+.keyB {
+  grid-area: keyB;
+}
+
+.keyN {
+  grid-area: keyN;
+}
+
+.keyM {
+  grid-area: keyM;
+}
+
+.comma {
+  grid-area: comma;
+}
+
+.period {
+  grid-area: period;
+}
+
+.slash {
+  grid-area: slash;
+}
+
+.arrowUp {
+  grid-area: arrowUp;
+}
+
+.shiftRight {
+  grid-area: shiftR;
+}
+
+.controlLeft {
+  grid-area: ctrl;
+}
+
+.metaLeft {
+  grid-area: win;
+}
+
+.altLeft {
+  grid-area: alt;
+}
+
+.space {
+  grid-area: space;
+}
+
+.altRight {
+  grid-area: altR;
+}
+
+.arrowLeft {
+  grid-area: arrowLeft;
+}
+
+.arrowDown {
+  grid-area: arrowButtom;
+}
+
+.arrowRight {
+  grid-area: arrowRight;
+}
+
+.controlRight {
+  grid-area: ctrlR;
+}
+
+/*# sourceMappingURL=style.css.map */
