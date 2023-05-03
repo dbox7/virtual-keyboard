@@ -157,11 +157,11 @@ function getCode(event) {
 
 function activeKey(event) {
   let button;
-  const code = getCode(event);
   if (event.keyCode === 9) {
     event.preventDefault();
   }
   if (event.code) {
+    const code = getCode(event);
     button = document.querySelector(`.${code}`);
   } else {
     button = event.target;
@@ -194,8 +194,13 @@ function deleteChar(del = false) {
 
 function buttonClick(event) {
   event.preventDefault();
-  const code = getCode(event);
-  if (Object.hasOwn(EN, code) || Object.hasOwn(data, code)) {
+  let checked = true;
+  if (event.type.includes('key')) {
+    const code = getCode(event);
+    checked = (Object.hasOwn(EN, code) || Object.hasOwn(data, code));
+  }
+
+  if (checked) {
     activeKey(event);
     if (event.type.includes('down')
       && ((event.altKey && getButton(event).innerHTML === 'Ctrl')
