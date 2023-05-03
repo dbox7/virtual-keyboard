@@ -151,13 +151,17 @@ function getButton(event) {
   return event.target;
 }
 
+function getCode(event) {
+  return (event.code)[0].toLowerCase() + (event.code).slice(1);
+}
+
 function activeKey(event) {
   let button;
+  const code = getCode(event);
   if (event.keyCode === 9) {
     event.preventDefault();
   }
   if (event.code) {
-    const code = (event.code)[0].toLowerCase() + (event.code).slice(1);
     button = document.querySelector(`.${code}`);
   } else {
     button = event.target;
@@ -190,86 +194,89 @@ function deleteChar(del = false) {
 
 function buttonClick(event) {
   event.preventDefault();
-  activeKey(event);
-  if (event.type.includes('down')
-    && ((event.altKey && getButton(event).innerHTML === 'Ctrl')
-    || (event.ctrlKey && getButton(event).innerHTML === 'Alt'))) {
-    const en = localStorage.getItem('en');
-    if (en === 'true') {
-      localStorage.setItem('en', false);
-    } else {
-      localStorage.setItem('en', true);
-    }
-    reactOnShift(0);
-  }
-  if (!(event.type === 'mouseup' || event.type === 'keyup')) {
-    const what = event.type.includes('key') ? event.key : event.target.innerHTML;
-    switch (what) {
-      case 'CapsLock':
-        capsLock = !capsLock;
-        if (capsLock || shift) {
-          reactOnShift(1);
-        } else {
-          reactOnShift(0);
-        }
-        break;
-      case 'Shift':
-        shift = true;
-        activeKey(event);
-        if (capsLock) {
-          reactOnShift(0);
-        } else {
-          reactOnShift(1);
-        }
-        break;
-      case 'Enter':
-        writeChar('\n');
-        break;
-      case 'Backspace':
-        deleteChar();
-        break;
-      case 'Tab':
-        writeChar('   ');
-        break;
-      case 'Space':
-      case ' ':
-        writeChar(' ');
-        break;
-      case 'ArrowUp':
-        writeChar('↑');
-        break;
-      case 'ArrowDown':
-        writeChar('↓');
-        break;
-      case 'ArrowLeft':
-        writeChar('←');
-        break;
-      case 'ArrowRight':
-        writeChar('→');
-        break;
-      case 'Del':
-      case 'Delete':
-        deleteChar(true);
-        break;
-      case 'Ctrl':
-      case 'Control':
-      case 'Win':
-      case 'Meta':
-      case 'Alt':
-        break;
-      default: {
-        let char = getButton(event).innerHTML;
-        char = char.length > 3 ? event.key : char;
-        writeChar(char);
-        break;
+  const code = getCode(event);
+  if (Object.hasOwn(EN, code) || Object.hasOwn(data, code)) {
+    activeKey(event);
+    if (event.type.includes('down')
+      && ((event.altKey && getButton(event).innerHTML === 'Ctrl')
+      || (event.ctrlKey && getButton(event).innerHTML === 'Alt'))) {
+      const en = localStorage.getItem('en');
+      if (en === 'true') {
+        localStorage.setItem('en', false);
+      } else {
+        localStorage.setItem('en', true);
       }
-    }
-  } else if (event.key === 'Shift' || getButton(event).className.includes('shift')) {
-    shift = false;
-    if (capsLock) {
-      reactOnShift(1);
-    } else {
       reactOnShift(0);
+    }
+    if (!(event.type === 'mouseup' || event.type === 'keyup')) {
+      const what = event.type.includes('key') ? event.key : event.target.innerHTML;
+      switch (what) {
+        case 'CapsLock':
+          capsLock = !capsLock;
+          if (capsLock || shift) {
+            reactOnShift(1);
+          } else {
+            reactOnShift(0);
+          }
+          break;
+        case 'Shift':
+          shift = true;
+          activeKey(event);
+          if (capsLock) {
+            reactOnShift(0);
+          } else {
+            reactOnShift(1);
+          }
+          break;
+        case 'Enter':
+          writeChar('\n');
+          break;
+        case 'Backspace':
+          deleteChar();
+          break;
+        case 'Tab':
+          writeChar('   ');
+          break;
+        case 'Space':
+        case ' ':
+          writeChar(' ');
+          break;
+        case 'ArrowUp':
+          writeChar('↑');
+          break;
+        case 'ArrowDown':
+          writeChar('↓');
+          break;
+        case 'ArrowLeft':
+          writeChar('←');
+          break;
+        case 'ArrowRight':
+          writeChar('→');
+          break;
+        case 'Del':
+        case 'Delete':
+          deleteChar(true);
+          break;
+        case 'Ctrl':
+        case 'Control':
+        case 'Win':
+        case 'Meta':
+        case 'Alt':
+          break;
+        default: {
+          let char = getButton(event).innerHTML;
+          char = char.length > 3 ? event.key : char;
+          writeChar(char);
+          break;
+        }
+      }
+    } else if (event.key === 'Shift' || getButton(event).className.includes('shift')) {
+      shift = false;
+      if (capsLock) {
+        reactOnShift(1);
+      } else {
+        reactOnShift(0);
+      }
     }
   }
 }
